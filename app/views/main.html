@@ -1,0 +1,80 @@
+<div class="jumbotron">
+  <div class="row">
+    <h1>Shorten that URL!</h1>
+    <p class="lead">Enter the URL you want to shorten.</p>
+    <form class="form-inline" ng-submit="newUrl()">
+      <div class="form-group">
+        <input ng-model="urlData.long" type="text" class="form-control input-lg" id="url-input" placeholder="Paste Here">
+      </div>
+      <button type="submit" class="btn btn-lg btn-success">Shorten!</button>
+      <h3><a href="{{newUrl.short_url}}">{{newUrl.short_url}}</a></h3>
+    </form>
+  </div>
+</div>
+
+<div class="homeTabs row">
+  <div role="tabpanel">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="homeTab active"><a href="#last10" aria-controls="home" role="tab" data-toggle="tab">Last 10 URL's Shortened</a></li>
+      <li role="presentation" class="homeTab"><a href="#top10" aria-controls="profile" role="tab" data-toggle="tab">Most Shortened URL's</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="last10">
+        <div class="col-lg-10 col-lg-offset-1">
+          <h2>Last 10 Shortened URL's</h2>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Long URL</th>
+                <th>Short URL</th>
+                <th>Requests</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="url in lastUrlList">
+                <td>{{url.title}}</td>
+                <td>{{url.long}}</td>
+                <td><a href="{{url.short_url}}">{{url.short_url}}</a></td>
+                <td>{{url.requests}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="top10">
+        <div class="col-lg-10 col-lg-offset-1">
+          <h2>Most Shortened URL's</h2>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Long URL</th>
+                <th>Short URL</th>
+                <th>Requests</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="url in topUrlList">
+                <td>{{url.title}}</td>
+                <td>{{url.long}}</td>
+                <td><a href="{{url.short_url}}">{{url.short_url}}</a></td>
+                <td>{{url.requests}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  $('.homeTab a').click(function (e) {
+    e.preventDefault()
+      $(this).tab('show')
+  })
+</script>
