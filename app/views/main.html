@@ -16,7 +16,7 @@
   <div role="tabpanel">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="homeTab active"><a href="#last10" aria-controls="home" role="tab" data-toggle="tab">Last 10 URL's Shortened</a></li>
+      <li role="presentation" class="homeTab active"><a href="#last10" aria-controls="home" role="tab" data-toggle="tab">Last Shortened URL's</a></li>
       <li role="presentation" class="homeTab"><a href="#top10" aria-controls="profile" role="tab" data-toggle="tab">Most Shortened URL's</a></li>
     </ul>
 
@@ -24,20 +24,18 @@
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="last10">
         <div class="col-lg-10 col-lg-offset-1">
-          <h2>Last 10 Shortened URL's</h2>
+          <h2>Last Shortened URL's</h2>
           <table class="table table-striped">
             <thead>
               <tr>
                 <th>Title</th>
-                <th>Long URL</th>
                 <th>Short URL</th>
                 <th>Requests</th>
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="url in lastUrlList">
+              <tr ng-repeat="url in lastUrlList | limitTo:10">
                 <td>{{url.title}}</td>
-                <td>{{url.long}}</td>
                 <td><a href="{{url.short_url}}">{{url.short_url}}</a></td>
                 <td>{{url.requests}}</td>
               </tr>
@@ -52,15 +50,13 @@
             <thead>
               <tr>
                 <th>Title</th>
-                <th>Long URL</th>
                 <th>Short URL</th>
                 <th>Requests</th>
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="url in topUrlList">
+              <tr ng-repeat="url in topUrlList | limitTo:10">
                 <td>{{url.title}}</td>
-                <td>{{url.long}}</td>
                 <td><a href="{{url.short_url}}">{{url.short_url}}</a></td>
                 <td>{{url.requests}}</td>
               </tr>

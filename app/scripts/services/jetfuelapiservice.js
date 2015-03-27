@@ -16,6 +16,10 @@ angular.module('jetfuelAngularApp')
       return $http.get(urlBase + '?sort_order=' + sort_order);
     }
 
+    this.getSearchedUrls = function(sort_order, search_term) {
+      return $http.get(urlBase + '?sort_order=' + sort_order + '&search=' + encodeURIComponent(search_term));
+    }
+
     this.createUrl = function(url) {
       return $http.post(urlBase, url)
     }
