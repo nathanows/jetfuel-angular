@@ -23,14 +23,6 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/analytics', {
-        templateUrl: 'views/analytics.html',
-        controller: 'AnalyticsCtrl'
-      })
-      .when('/search', {
-        templateUrl: 'views/search.html',
-        controller: 'SearchCtrl'
-      })
       .otherwise({
         redirectTo: '/'
       });

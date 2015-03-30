@@ -1,12 +1,15 @@
-<div class="jumbotron">
-  <div class="row">
+<div class="row main-submit-box">
+  <div class="col-lg-5 header-img">
+     <img src="http://s13.postimg.org/kguh2mqt3/jetfuel.jpg" alt="jet-fuel" />
+  </div>
+  <div class="col-lg-7">
     <h1>Shorten that URL!</h1>
     <p class="lead">Enter the URL you want to shorten.</p>
-    <form class="form-inline" ng-submit="newUrl()">
+    <form class="form-inline" name="newUrlForm" ng-submit="newUrl()">
       <div class="form-group">
         <input ng-model="urlData.long" type="text" class="form-control input-lg" id="url-input" placeholder="Paste Here">
       </div>
-      <button type="submit" class="btn btn-lg btn-success">Shorten!</button>
+      <button type="submit" id="url-input-btn" class="btn btn-lg btn-success">Shorten!</button>
       <h3><a href="{{newUrl.short_url}}">{{newUrl.short_url}}</a></h3>
     </form>
   </div>
@@ -16,16 +19,17 @@
   <div role="tabpanel">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="homeTab active"><a href="#last10" aria-controls="home" role="tab" data-toggle="tab">Last Shortened URL's</a></li>
-      <li role="presentation" class="homeTab"><a href="#top10" aria-controls="profile" role="tab" data-toggle="tab">Most Shortened URL's</a></li>
+      <li role="presentation" id="last10tab" class="homeTab active col-lg-4"><a href="#last10" aria-controls="home" role="tab" data-toggle="tab">Last Shortened URL's</a></li>
+      <li role="presentation" id="top10tab" class="homeTab col-lg-4"><a href="#top10" aria-controls="profile" role="tab" data-toggle="tab">Most Shortened URL's</a></li>
+      <li role="presentation" id="searchtab" class="homeTab col-lg-4"><a href="#search" aria-controls="profile" role="tab" data-toggle="tab">Search URL's</a></li>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="last10">
-        <div class="col-lg-10 col-lg-offset-1">
-          <h2>Last Shortened URL's</h2>
-          <table class="table table-striped">
+        <div class="col-lg-12 tab-col">
+          <h2>Last 10 Shortened URL's</h2>
+          <table class="table">
             <thead>
               <tr>
                 <th>Title</th>
@@ -37,28 +41,58 @@
               <tr ng-repeat="url in lastUrlList | limitTo:10">
                 <td>{{url.title}}</td>
                 <td><a href="{{url.short_url}}">{{url.short_url}}</a></td>
-                <td>{{url.requests}}</td>
+                <td class="request-count">{{url.requests}}</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
       <div role="tabpanel" class="tab-pane" id="top10">
-        <div class="col-lg-10 col-lg-offset-1">
-          <h2>Most Shortened URL's</h2>
+        <div class="col-lg-12 tab-col">
+          <h2>Top 10 Most Shortened URL's</h2>
           <table class="table table-striped">
             <thead>
               <tr>
                 <th>Title</th>
                 <th>Short URL</th>
-                <th>Requests</th>
+                <th class="request-count">Requests</th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="url in topUrlList | limitTo:10">
                 <td>{{url.title}}</td>
                 <td><a href="{{url.short_url}}">{{url.short_url}}</a></td>
-                <td>{{url.requests}}</td>
+                <td class="request-count">{{url.requests}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="search">
+        <div class="col-lg-12 tab-col">
+          <h2>Search</h2>
+          <div class="col-lg-8 col-lg-offset-2 well search-box">
+            <form class="form-inline" ng-submit="searchURLs()">
+              <div class="form-group">
+                <input ng-model="searchTerm" type="text" class="form-control input-lg" id="search-input" placeholder="Search Terms">
+              </div>
+              <button type="submit" class="btn btn-lg btn-success">Search!</button>
+            </form>
+          </div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Short URL</th>
+                <th class="request-count">Requests</th>
+              </tr>
+            </thead>
+            <tbody>
+              <td colspan=3 ng-show="!searchedUrlsList.length">No results</td>
+              <tr ng-repeat="url in searchedUrlsList">
+                <td>{{url.title}}</td>
+                <td><a href="{{url.short_url}}">{{url.short_url}}</a></td>
+                <td class="request-count">{{url.requests}}</td>
               </tr>
             </tbody>
           </table>

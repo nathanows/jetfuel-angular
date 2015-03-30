@@ -35,13 +35,28 @@ angular.module('jetfuelAngularApp')
 
       getTopUrls();
 
+      $scope.searchTerm = "";
+
+      $scope.searchURLs = function getSearchedUrls() {
+        urlService.getSearchedUrls("updated_at", $scope.searchTerm)
+          .success(function(urls) {
+            $scope.searchedUrlsList = urls.url;
+          })
+          .error(function(error) {
+            $scope.status = 'Unable to load url data: ' + error.message;
+          });
+      }
+
       // Form data for creating a new post with ng-model
       $scope.urlData = {};
       $scope.newUrl = function() {
         urlService.createUrl({url: $scope.urlData})
-          .success(function(new_url) {
-            console.log(new_url)
-            $scope.newUrl = new_url.url
+          .success(function(newUrl) {
+            $scope.newUrl = newUrl.url;
+            $scope.urlData = '';
+            $scope.newUrlForm.$setPristine();
+            setTimeout(getLastUrls, 1000);
+            setTimeout(getTopUrls, 1000);
           })
           .error(function(error) {
             $scope.status = 'Unable to create url: ' + error.message;
